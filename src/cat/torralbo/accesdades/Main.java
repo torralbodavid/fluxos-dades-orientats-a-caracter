@@ -15,11 +15,16 @@ public class Main {
 
         /*System.out.println(damReader());*/
 
-        try {
+        /*try {
             System.out.println(stringWriter());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        /*mostraNoAlfabetic();*/
+
+        String paraula = "Això és un text que es passarà a bytes";
+        System.out.println(bytesString(paraula.getBytes()));
     }
 
     private static boolean comparaFitxers() {
@@ -122,5 +127,52 @@ public class Main {
             fStream.close();
         }
         return stringWriter.toString();
+    }
+
+    private static String bytesString(byte[] bytes){
+
+        return new String(bytes);
+
+    }
+
+    /*
+    Mostra la xifra de caràcters que no són lletres.
+     */
+    private static void mostraNoAlfabetic() {
+
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader(new File("src/primer.txt")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        int nextChar;
+        int other = 0;
+        char ch;
+
+        int[] count = new int[26];
+
+        try {
+            while ((nextChar = in.read()) != -1) {
+                ch = ((char) nextChar);
+                ch = Character.toLowerCase(ch);
+                if (ch >= 'a' && ch <= 'z')
+                    count[ch - 'a']++;
+                else
+                    other++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println("Caràcters que no són lletres: " + other);
+
+        try {
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
